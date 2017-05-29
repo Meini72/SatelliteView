@@ -108,11 +108,15 @@ function onCameraReset(){
 
 
 var resetButton = document.getElementById('reset-button');
-	resetButton.addEventListener('click',onCameraReset);
+	if (resetButton) {
+		resetButton.addEventListener('click',onCameraReset);
+	}
 
 /*Arrow controls*/
 var arrows = document.getElementById('controls');
-	arrows.addEventListener('click',moveOnClick,false);
+	if (arrows) {
+		arrows.addEventListener('click',moveOnClick,false);
+	}
 
 function moveOnClick(e){
 	var button = e.target;
@@ -180,8 +184,12 @@ function zoom(increase){
 	camera.updateProjectionMatrix();
 }
 
-zoomPlus.addEventListener('click',function(){ zoom(true)});
-zoomMinus.addEventListener('click',function(){ zoom(false)});
+if (zoomPlus) {
+	zoomPlus.addEventListener('click',function(){ zoom(true)});
+}
+if (zoomMinus) {
+	zoomMinus.addEventListener('click',function(){ zoom(false)});
+}
 
 
 /* Stop/Start Auto roate*/
@@ -192,6 +200,8 @@ function toggleAutoRotate(){
 }
 
 var checkbox = document.getElementById('auto-rotate');
+if (checkbox){
 	checkbox.addEventListener('change',toggleAutoRotate);
+}
 
 
