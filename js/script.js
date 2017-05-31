@@ -22,6 +22,9 @@ var PI 		= Math.PI,
 		RADIUS 	  : 150,
 		HSEGMENTS : 20,
 		VSEGMENTS : 20
+	},
+	CamMask = {
+		h: 30
 	}
 
 /*
@@ -39,6 +42,17 @@ var geometry    = new THREE.SphereGeometry(Sphere.RADIUS,Sphere.HSEGMENTS,Sphere
 						}
 				 	),
 	sphere 		= new THREE.Mesh(geometry,material); 
+	
+var maskgeo = new THREE.PlaneGeometry( CamMask.h*Camera.ASPECT, CamMask.h),
+	maskmaterial = new THREE.MeshBasicMaterial( 
+						{
+							map : THREE.ImageUtils.loadTexture('img/spacecraft.png'),
+							transparent: true,
+							alphaTest: 0.5
+							
+						} 
+					),
+	maskplane = new THREE.Mesh( maskgeo, maskmaterial );
 
 /* Positioning and other transforms */
 
@@ -47,6 +61,10 @@ sphere.scale.x = -1 // Invert the sphere to get the picture inside of sphere bec
 camera.position.x = 0.1; //TODO with lookAt and stuff
 
 scene.add(sphere);
+
+scene.add(camera);
+camera.add( maskplane );
+maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.9*Camera.FOV/180*PI) );
 
 /*Controls*/
 var controls = new THREE.OrbitControls(camera,renderer.domElement);
