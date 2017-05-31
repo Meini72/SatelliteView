@@ -71,7 +71,7 @@ var controls = new THREE.OrbitControls(camera,renderer.domElement);
 	controls.noPan = true;
 	controls.noZoom = true;
 	controls.autoRotate = true;
-	controls.autoRotateSpeed = 0.5; //TODO
+	controls.autoRotateSpeed = 0.2; //TODO
 
 /*Rendering*/
 container.appendChild(renderer.domElement);
