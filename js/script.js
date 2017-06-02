@@ -64,7 +64,7 @@ scene.add(sphere);
 
 scene.add(camera);
 camera.add( maskplane );
-maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.9*Camera.FOV/180*PI) );
+maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.95*Camera.FOV/180*PI) );
 
 /*Controls*/
 var controls = new THREE.OrbitControls(camera,renderer.domElement,maskplane);
