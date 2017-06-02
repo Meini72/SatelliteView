@@ -23,9 +23,10 @@
 //      controls.target.z = 150;
 // Simple substitute "OrbitControls" and the control should work as-is.
 
-THREE.OrbitControls = function ( object, domElement ) {
+THREE.OrbitControls = function ( object, domElement, maskplane ) {
 
 	this.object = object;
+	this.maskplane = maskplane;
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 
 	// API

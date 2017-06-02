@@ -13,6 +13,21 @@
 		<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="https://code.jquery.com/jquery-migrate-1.1.0.js"></script>
 		<script src='js/bootstrap.min.js'></script>
+		<script>
+			$(document).ready(function() {
+			var movementStrength = 25;
+			var height = movementStrength / $(window).height();
+			var width = movementStrength / $(window).width();
+			$("#container").mousemove(function(e){
+			          var pageX = e.pageX - ($(window).width() / 2);
+			          var pageY = e.pageY - ($(window).height() / 2);
+			          var newvalueX = width * pageX * -1 - 25;
+			          var newvalueY = height * pageY * -1 - 25;
+			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
+			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
+			});
+			});
+		</script>
 		<style>
 	        .imtip {
 	      position: absolute;
