@@ -21,7 +21,7 @@
 			$("#container").mousemove(function(e){
 			          var pageX = e.pageX - ($(window).width() / 2);
 			          var pageY = e.pageY - ($(window).height() / 2);
-			          var newvalueX = width * pageX * -1 - 25;
+			          var newvalueX = width * pageX * 1 - 25;
 			          var newvalueY = height * pageY * -1 - 25;
 			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
 			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
