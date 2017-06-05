@@ -10,8 +10,8 @@
 		
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="styles.css">
-		<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="https://code.jquery.com/jquery-migrate-1.1.0.js"></script>
+		<script src="js/jquery-1.9.1.js"></script>
+		<script src="js/jquery-migrate-1.1.0.js"></script>
 		<script src='js/bootstrap.min.js'></script>
 		<script>
 			$(document).ready(function() {
@@ -29,16 +29,16 @@
 			          startpointX = e.pageX;
 			          startpointY = e.pageY;
 			});
-			$("#container").mousemove(function(e){
+			/*$("#container").mousemove(function(e){
 			          var pageX = e.pageX - ($(window).width() / 2);
 			          var pageY = e.pageY - ($(window).height() / 2);
 			          var newvalueX = width * pageX * 1 - 25;
 			          var newvalueY = height * pageY * 1 - 25;
 			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
 			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
-			});
+			});*/
 			$("#container").mouseup(function(e){
-					  alert(maskplane.position.x+','+maskplane.position.y);
+					  //alert(maskplane.position.x+','+maskplane.position.y);
 					  endpointX = e.pageX;
 					  endpointY = e.pageY;
 			          var pageX = endpointX - startpointX;
@@ -47,7 +47,7 @@
 			          var newvalueY = height_drag * pageY * 1 - 25;
 			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
 			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
-			          alert(maskplane.position.x+','+maskplane.position.y);
+			          //alert(maskplane.position.x+','+maskplane.position.y);
 			});
 			});
 		</script>
@@ -127,7 +127,7 @@
 					</label>
 				</div>
 			</div>-->
-			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.min.js"></script>
+			<script type="text/javascript" src="js/three.min.js"></script>
 			<script type="text/javascript" src="js/OrbitControls.js"></script>
 			<script type="text/javascript" src="js/Detector.js"></script>
 			<script type="text/javascript" src="js/script.js"></script>
