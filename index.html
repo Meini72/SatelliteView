@@ -15,8 +15,8 @@
 		<script src='js/bootstrap.min.js'></script>
 		<script>
 			$(document).ready(function() {
-			var movementStrength = 25;
-			var movementStrength_drag = 25;
+			var movementStrength = 75;
+			var movementStrength_drag = 75;
 			var height = movementStrength / $(window).height();
 			var width = movementStrength / $(window).width();
 			var height_drag = movementStrength_drag / $(window).height();
@@ -28,6 +28,12 @@
 			$("#container").mousedown(function(e){
 			          startpointX = e.pageX;
 			          startpointY = e.pageY;
+			          var pageX = e.pageX - ($(window).width() / 2);
+			          var pageY = e.pageY - ($(window).height() / 2);
+			          var newvalueX = width * pageX * 1;
+			          var newvalueY = height * pageY * -1;
+			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
+			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
 			});
 			/*$("#container").mousemove(function(e){
 			          var pageX = e.pageX - ($(window).width() / 2);
@@ -43,8 +49,10 @@
 					  endpointY = e.pageY;
 			          var pageX = endpointX - startpointX;
 			          var pageY = endpointY - startpointY;
-			          var newvalueX = width_drag * pageX * 1 - 25;
-			          var newvalueY = height_drag * pageY * 1 - 25;
+			          //var newvalueX = width_drag * pageX * 1 - 25;
+			          //var newvalueY = height_drag * pageY * 1 - 25;
+			          var newvalueX = 0;
+			          var newvalueY = 0;
 			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
 			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
 			          //alert(maskplane.position.x+','+maskplane.position.y);
