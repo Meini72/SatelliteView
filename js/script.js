@@ -70,12 +70,25 @@ maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*C
 var controls = new THREE.OrbitControls(camera,renderer.domElement,maskplane);
 	controls.noPan = true;
 	controls.noZoom = true;
-	controls.autoRotate = true;
+	controls.autoRotate = false;
 	controls.autoRotateSpeed = 0.2; //TODO
 
 /*Rendering*/
 container.appendChild(renderer.domElement);
 render();
+
+var no_background = 0;
+setInterval(function() {
+  no_background++;
+  if (no_background % 2 == 1) {
+  	sphere.material.map = THREE.ImageUtils.loadTexture( 'B271_panorama.jpg' );
+	sphere.material.needsUpdate = true;
+  }
+  else {
+  	sphere.material.map = THREE.ImageUtils.loadTexture( 'B272_panorama.jpg' );
+	sphere.material.needsUpdate = true;
+  }
+},5000);
 
 function render() {
 	controls.update();
