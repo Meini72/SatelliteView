@@ -23,10 +23,9 @@
 //      controls.target.z = 150;
 // Simple substitute "OrbitControls" and the control should work as-is.
 
-THREE.OrbitControls = function ( object, domElement, maskplane ) {
+THREE.OrbitControls = function ( object, domElement ) {
 
 	this.object = object;
-	this.maskplane = maskplane;
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 
 	// API
@@ -50,15 +49,15 @@ THREE.OrbitControls = function ( object, domElement, maskplane ) {
 
 	// Set to true to disable this control
 	this.noRotate = false;
-	this.rotateSpeed = 1.0;
+	this.rotateSpeed = 0.1;
 
 	// Set to true to disable this control
 	this.noPan = false;
 	this.keyPanSpeed = 7.0;	// pixels moved per arrow key push
 
 	// Set to true to automatically rotate around the target
-	this.autoRotate = false;
-	this.autoRotateSpeed = 2.0; // 30 seconds per round when fps is 60
+	//this.autoRotate = true;
+	//this.autoRotateSpeed = 5.0; // 30 seconds per round when fps is 60
 
 	// How far you can orbit vertically, upper and lower limits.
 	// Range is 0 to Math.PI radians.
@@ -77,9 +76,7 @@ THREE.OrbitControls = function ( object, domElement, maskplane ) {
 
 	var EPS = 0.000001;
 
-	var rotateStart = new THREE.Vector2();
-	var rotateEnd = new THREE.Vector2();
-	var rotateDelta = new THREE.Vector2();
+	
 
 	var panStart = new THREE.Vector2();
 	var panEnd = new THREE.Vector2();
@@ -98,6 +95,21 @@ THREE.OrbitControls = function ( object, domElement, maskplane ) {
 
 	var STATE = { NONE : -1, ROTATE : 0, DOLLY : 1, PAN : 2, TOUCH_ROTATE : 3, TOUCH_DOLLY : 4, TOUCH_PAN : 5 };
 	var state = STATE.NONE;
+	
+	var rotateStart = new THREE.Vector2();
+	var rotateEnd = new THREE.Vector2();
+	var rotateDelta = new THREE.Vector2();
+	
+	var movementStrength = 75;
+	var movementStrength_drag = 75;
+	var height = movementStrength / $(window).height();
+	var width = movementStrength / $(window).width();
+	var height_drag = movementStrength_drag / $(window).height();
+	var width_drag = movementStrength_drag / $(window).width();
+	var startpointX = 0;
+	var startpointY = 0;
+	var endpointX = 0;
+	var endpointY = 0;
 
 	// events
 
@@ -285,41 +297,12 @@ THREE.OrbitControls = function ( object, domElement, maskplane ) {
 
 	function onMouseDown( event ) {
 
-		if ( scope.enabled === false ) { return; }
-		event.preventDefault();
-
-		if ( event.button === 0 ) {
-			if ( scope.noRotate === true ) { return; }
-
-			state = STATE.ROTATE;
-
-			rotateStart.set( event.clientX, event.clientY );
-
-		} else if ( event.button === 1 ) {
-			if ( scope.noZoom === true ) { return; }
-
-			state = STATE.DOLLY;
-
-			dollyStart.set( event.clientX, event.clientY );
-
-		} else if ( event.button === 2 ) {
-			if ( scope.noPan === true ) { return; }
-
-			state = STATE.PAN;
-
-			panStart.set( event.clientX, event.clientY );
-
-		}
-
-		// Greggman fix: https://github.com/greggman/three.js/commit/fde9f9917d6d8381f06bf22cdff766029d1761be
-		scope.domElement.addEventListener( 'mousemove', onMouseMove, false );
-		scope.domElement.addEventListener( 'mouseup', onMouseUp, false );
-
+		
 	}
 
 	function onMouseMove( event ) {
 
-		if ( scope.enabled === false ) return;
+		/*if ( scope.enabled === false ) return;
 
 		event.preventDefault();
 
@@ -372,19 +355,19 @@ THREE.OrbitControls = function ( object, domElement, maskplane ) {
 		}
 
 		// Greggman fix: https://github.com/greggman/three.js/commit/fde9f9917d6d8381f06bf22cdff766029d1761be
-		scope.update();
+		scope.update();*/
 
 	}
 
-	function onMouseUp( /* event */ ) {
+	function onMouseUp( ) {
 
-		if ( scope.enabled === false ) return;
+		/*if ( scope.enabled === false ) return;
 
 		// Greggman fix: https://github.com/greggman/three.js/commit/fde9f9917d6d8381f06bf22cdff766029d1761be
 		scope.domElement.removeEventListener( 'mousemove', onMouseMove, false );
 		scope.domElement.removeEventListener( 'mouseup', onMouseUp, false );
 
-		state = STATE.NONE;
+		state = STATE.NONE;*/
 
 	}
 

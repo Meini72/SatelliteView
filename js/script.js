@@ -37,7 +37,7 @@ var scene 		= new THREE.Scene(),
 var geometry    = new THREE.SphereGeometry(Sphere.RADIUS,Sphere.HSEGMENTS,Sphere.VSEGMENTS),
 	material 	= new THREE.MeshBasicMaterial(
 						{
-							map : THREE.ImageUtils.loadTexture('img.jpg'),
+							map : THREE.ImageUtils.loadTexture('B271_panorama.jpg'),
 							overdraw : true // To the make the division lines of geometry disappear 
 						}
 				 	),
@@ -67,17 +67,17 @@ camera.add( maskplane );
 maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.95*Camera.FOV/180*PI) );
 
 /*Controls*/
-var controls = new THREE.OrbitControls(camera,renderer.domElement,maskplane);
+var controls = new THREE.OrbitControls(camera,renderer.domElement);
 	controls.noPan = true;
 	controls.noZoom = true;
-	controls.autoRotate = false;
-	controls.autoRotateSpeed = 0.2; //TODO
+	controls.autoRotate = true;
+	controls.autoRotateSpeed = 0.1; //TODO
 
 /*Rendering*/
 container.appendChild(renderer.domElement);
 render();
 
-var no_background = 0;
+/*var no_background = 0;
 setInterval(function() {
   no_background++;
   if (no_background % 2 == 1) {
@@ -88,7 +88,7 @@ setInterval(function() {
   	sphere.material.map = THREE.ImageUtils.loadTexture( 'B272_panorama.jpg' );
 	sphere.material.needsUpdate = true;
   }
-},5000);
+},500);*/
 
 function render() {
 	controls.update();
