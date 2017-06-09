@@ -22,45 +22,45 @@
 			var DeltaRef = Math.sqrt($(window).height()*$(window).height()+$(window).width()*$(window).width())*0.5;
 			$("#container").on("mousemove", function(e) {
 				      if (e.which==1) {
-				      var pageX = e.pageX - ($(window).width() / 2);
-			          var pageY = e.pageY - ($(window).height() / 2);
-			          var newvalueX = width * pageX * 1;
-			          var newvalueY = height * pageY * -1;
-			          var rotateEndx = pageX; var rotateEndy = pageY;
-			          var rotateDeltax = rotateEndx;
-			          var rotateDeltay = rotateEndy;
-			          var DeltaLen = Math.sqrt(rotateDeltax*rotateDeltax+rotateDeltay*rotateDeltay);
-			          var rotateSpeed = 0.01*DeltaLen/DeltaRef;
-			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
-			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
-					  if (rotateDeltax>0){
-					  	for(count = 0; count <= rotateDeltax; count=count+0.5){
-			               setTimeout(function() {
-			               	controls.rotateLeft( 2 * Math.PI / $(window).width() * rotateSpeed );
-			               }, 100);
-			            }
-					  }
-					  else {
-					  	for(count = rotateDeltax; count <0; count=count+0.5){
-			               setTimeout(function() {
-			               	controls.rotateLeft( -2 * Math.PI / $(window).width() * rotateSpeed );
-			               }, 100);
-			            }
-					  }
-					  if (rotateDeltay>0){
-					  	for(count = 0; count <= rotateDeltay; count=count+0.5){
-			               setTimeout(function() {
-			               	controls.rotateUp( 2 * Math.PI / $(window).height() * rotateSpeed );
-			               }, 100);
-			            }
-					  }
-			          else {
-			          	for(count = rotateDeltay; count <0; count=count+0.5){
-			               setTimeout(function() {
-			               	controls.rotateUp( -2 * Math.PI / $(window).height() * rotateSpeed );
-			               }, 100);
-			            }
-			          }
+						      var pageX = e.pageX - ($(window).width() / 2);
+					          var pageY = e.pageY - ($(window).height() / 2);
+					          var newvalueX = width * pageX * 1;
+					          var newvalueY = height * pageY * -1;
+					          var rotateEndx = pageX; var rotateEndy = pageY;
+					          var rotateDeltax = rotateEndx;
+					          var rotateDeltay = rotateEndy;
+					          var DeltaLen = Math.sqrt(rotateDeltax*rotateDeltax+rotateDeltay*rotateDeltay);
+					          var rotateSpeed = 0.01*DeltaLen/DeltaRef;
+					          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
+					          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
+							  if (rotateDeltax>0){
+							  	for(count = 0; count <= rotateDeltax; count=count+0.5){
+					               setTimeout(function() {
+					               	controls.rotateLeft( 2 * Math.PI / $(window).width() * rotateSpeed );
+					               }, 100);
+					            }
+							  }
+							  else {
+							  	for(count = rotateDeltax; count <0; count=count+0.5){
+					               setTimeout(function() {
+					               	controls.rotateLeft( -2 * Math.PI / $(window).width() * rotateSpeed );
+					               }, 100);
+					            }
+							  }
+							  if (rotateDeltay>0){
+							  	for(count = 0; count <= rotateDeltay; count=count+0.5){
+					               setTimeout(function() {
+					               	controls.rotateUp( 2 * Math.PI / $(window).height() * rotateSpeed );
+					               }, 100);
+					            }
+							  }
+					          else {
+					          	for(count = rotateDeltay; count <0; count=count+0.5){
+					               setTimeout(function() {
+					               	controls.rotateUp( -2 * Math.PI / $(window).height() * rotateSpeed );
+					               }, 100);
+					            }
+					          }
 				      }
 			});
 			$("#container").on("mousedown", function(e) {
@@ -72,7 +72,8 @@
 			          var rotateDeltax = rotateEndx;
 			          var rotateDeltay = rotateEndy;
 			          var DeltaLen = Math.sqrt(rotateDeltax*rotateDeltax+rotateDeltay*rotateDeltay);
-			          var rotateSpeed = 0.1*DeltaLen/DeltaRef;
+			          var rotateSpeed = 0.01*DeltaLen/DeltaRef;
+			          intervalID = setInterval(function () {
 			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
 			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
 					  if (rotateDeltax>0){
@@ -103,11 +104,12 @@
 			               }, 100);
 			            }
 			          }
-			    return false;
+			          },50);
 			});
 			$("#container").on("mouseup", function(e) {
 			          maskplane.position.x = 0;
 			          maskplane.position.y = 0;
+			          clearInterval(intervalID);
 			});
 		});
 		</script>
