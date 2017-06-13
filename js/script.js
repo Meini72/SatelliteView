@@ -20,8 +20,13 @@ var PI 		= Math.PI,
 	},
 	Sphere 	= {
 		RADIUS 	  : 150,
-		HSEGMENTS : 20,
-		VSEGMENTS : 20
+		HSEGMENTS : 50,
+		VSEGMENTS : 50
+	},
+	Sphere_universe 	= {
+		RADIUS 	  : 151,
+		HSEGMENTS : 50,
+		VSEGMENTS : 50
 	},
 	CamMask = {
 		h: 30
@@ -37,11 +42,24 @@ var scene 		= new THREE.Scene(),
 var geometry    = new THREE.SphereGeometry(Sphere.RADIUS,Sphere.HSEGMENTS,Sphere.VSEGMENTS),
 	material 	= new THREE.MeshBasicMaterial(
 						{
-							map : THREE.ImageUtils.loadTexture('B271_panorama.jpg'),
-							overdraw : true // To the make the division lines of geometry disappear 
+							map : THREE.ImageUtils.loadTexture('earth.png'),
+							overdraw : true, // To the make the division lines of geometry disappear 
+							transparent: true,
+							alphaTest: 0.5
 						}
 				 	),
 	sphere 		= new THREE.Mesh(geometry,material); 
+	
+var geometry_universe    = new THREE.SphereGeometry(Sphere_universe.RADIUS,Sphere_universe.HSEGMENTS,Sphere_universe.VSEGMENTS),
+	material_universe 	= new THREE.MeshBasicMaterial(
+						{
+							map : THREE.ImageUtils.loadTexture('universe.png'),
+							overdraw : true, // To the make the division lines of geometry disappear 
+							transparent: true,
+							alphaTest: 0.5
+						}
+				 	),
+	sphere_universe 		= new THREE.Mesh(geometry_universe,material_universe); 
 	
 var maskgeo = new THREE.PlaneGeometry( CamMask.h*Camera.ASPECT, CamMask.h),
 	maskmaterial = new THREE.MeshBasicMaterial( 
@@ -56,12 +74,13 @@ var maskgeo = new THREE.PlaneGeometry( CamMask.h*Camera.ASPECT, CamMask.h),
 
 /* Positioning and other transforms */
 
-sphere.scale.x = -1 // Invert the sphere to get the picture inside of sphere because our camera will be inside
+sphere.scale.x = -1; // Invert the sphere to get the picture inside of sphere because our camera will be inside
+sphere_universe.scale.x = -1;
 
 camera.position.x = 0.1; //TODO with lookAt and stuff
 
 scene.add(sphere);
-
+scene.add(sphere_universe);
 scene.add(camera);
 camera.add( maskplane );
 maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.95*Camera.FOV/180*PI) );
@@ -70,12 +89,13 @@ maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*C
 var controls = new THREE.OrbitControls(camera,renderer.domElement);
 	controls.noPan = true;
 	controls.noZoom = true;
-	controls.autoRotate = true;
+	controls.autoRotate = false;
 	controls.autoRotateSpeed = 0.1; //TODO
 
 /*Rendering*/
 container.appendChild(renderer.domElement);
 render();
+animate();
 
 /*var no_background = 0;
 setInterval(function() {
@@ -89,6 +109,17 @@ setInterval(function() {
 	sphere.material.needsUpdate = true;
   }
 },500);*/
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	sphere.rotation.y += 0.0005;
+	//sphere.rotation.y += 0.02;
+
+	renderer.render( scene, camera );
+
+}
 
 function render() {
 	controls.update();
