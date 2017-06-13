@@ -31,8 +31,10 @@
 					          var rotateDeltay = rotateEndy;
 					          var DeltaLen = Math.sqrt(rotateDeltax*rotateDeltax+rotateDeltay*rotateDeltay);
 					          var rotateSpeed = 0.01*DeltaLen/DeltaRef;
-					          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
-					          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
+					          //maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
+					          //maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
+					          sphere_spacecraft.position.y = -5*pageY/($(window).height() / 2);
+					          sphere_spacecraft.position.x = 5*pageX/($(window).width() / 2);
 							  if (rotateDeltax>0){
 							  	for(count = 0; count <= rotateDeltax; count=count+0.5){
 					               setTimeout(function() {
@@ -62,6 +64,12 @@
 					            }
 					          }
 				      }
+				      else {
+				      	var pageX = e.pageX - ($(window).width() / 2);
+					    var pageY = e.pageY - ($(window).height() / 2);
+				      	sphere_spacecraft.rotation.y += 0.000005*(pageX);
+				      	sphere_spacecraft.rotation.z += 0.000005*(-pageY);
+				      }
 			});
 			$("#container").on("mousedown", function(e) {
 				      var pageX = e.pageX - ($(window).width() / 2);
@@ -74,8 +82,10 @@
 			          var DeltaLen = Math.sqrt(rotateDeltax*rotateDeltax+rotateDeltay*rotateDeltay);
 			          var rotateSpeed = 0.01*DeltaLen/DeltaRef;
 			          intervalID = setInterval(function () {
-			          maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
-			          maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
+			          //maskplane.position.x = newvalueX/$(window).width()*CamMask.h*Camera.ASPECT;
+			          //maskplane.position.y = newvalueY/$(window).height()*CamMask.h;
+			          sphere_spacecraft.position.y = -5*pageY/($(window).height() / 2);
+					  sphere_spacecraft.position.x = 5*pageX/($(window).width() / 2);
 					  if (rotateDeltax>0){
 					  	for(count = 0; count <= rotateDeltax; count=count+0.5){
 			               setTimeout(function() {
@@ -107,8 +117,11 @@
 			          },50);
 			});
 			$("#container").on("mouseup", function(e) {
-			          maskplane.position.x = 0;
-			          maskplane.position.y = 0;
+			          //maskplane.position.x = 0;
+			          //maskplane.position.y = 0;
+			          sphere_spacecraft.position.x = 0;
+					  sphere_spacecraft.position.y = 0;
+					  sphere_spacecraft.position.z = 0;
 			          clearInterval(intervalID);
 			});
 		});

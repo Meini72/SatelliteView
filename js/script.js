@@ -21,10 +21,15 @@ var PI 		= Math.PI,
 	Sphere 	= {
 		RADIUS 	  : 150,
 		HSEGMENTS : 50,
-		VSEGMENTS : 50
+		VSEGMENTS : 100
 	},
 	Sphere_universe 	= {
 		RADIUS 	  : 151,
+		HSEGMENTS : 50,
+		VSEGMENTS : 50
+	},
+	Sphere_spacecraft 	= {
+		RADIUS 	  : 30,
 		HSEGMENTS : 50,
 		VSEGMENTS : 50
 	},
@@ -61,7 +66,7 @@ var geometry_universe    = new THREE.SphereGeometry(Sphere_universe.RADIUS,Spher
 				 	),
 	sphere_universe 		= new THREE.Mesh(geometry_universe,material_universe); 
 	
-var maskgeo = new THREE.PlaneGeometry( CamMask.h*Camera.ASPECT, CamMask.h),
+/*var maskgeo = new THREE.PlaneGeometry( CamMask.h*Camera.ASPECT, CamMask.h),
 	maskmaterial = new THREE.MeshBasicMaterial( 
 						{
 							map : THREE.ImageUtils.loadTexture('img/spacecraft.png'),
@@ -70,20 +75,34 @@ var maskgeo = new THREE.PlaneGeometry( CamMask.h*Camera.ASPECT, CamMask.h),
 							
 						} 
 					),
-	maskplane = new THREE.Mesh( maskgeo, maskmaterial );
+	maskplane = new THREE.Mesh( maskgeo, maskmaterial );*/
+	
+var geometry_spacecraft    = new THREE.SphereGeometry(Sphere_spacecraft.RADIUS,Sphere_spacecraft.HSEGMENTS,Sphere_spacecraft.VSEGMENTS),
+	material_spacecraft 	= new THREE.MeshBasicMaterial(
+						{
+							map : THREE.ImageUtils.loadTexture('img/spacecraft.png'),
+							overdraw : true, // To the make the division lines of geometry disappear 
+							transparent: true,
+							alphaTest: 0.5
+						}
+				 	),
+	sphere_spacecraft 		= new THREE.Mesh(geometry_spacecraft,material_spacecraft); 
 
 /* Positioning and other transforms */
 
 sphere.scale.x = -1; // Invert the sphere to get the picture inside of sphere because our camera will be inside
 sphere_universe.scale.x = -1;
+sphere_spacecraft.scale.x = -1;
 
 camera.position.x = 0.1; //TODO with lookAt and stuff
 
 scene.add(sphere);
-scene.add(sphere_universe);
+//scene.add(sphere_universe);
+//scene.add(sphere_spacecraft);
 scene.add(camera);
-camera.add( maskplane );
-maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.95*Camera.FOV/180*PI) );
+scene.add( sphere_universe );
+camera.add( sphere_spacecraft );
+//maskplane.position.set( 0, 0, -0.5*Math.sqrt(CamMask.h*CamMask.h*Camera.ASPECT*Camera.ASPECT+CamMask.h*CamMask.h)/Math.tan(0.95*Camera.FOV/180*PI) );
 
 /*Controls*/
 var controls = new THREE.OrbitControls(camera,renderer.domElement);
